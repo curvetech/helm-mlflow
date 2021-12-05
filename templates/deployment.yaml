@@ -35,9 +35,15 @@ spec:
           - name: MLFLOW_S3_ENDPOINT_URL
             value: {{ .Values.minio.url }}
           - name: AWS_ACCESS_KEY_ID
-            value: {{ .Values.minio.accesskey }}
+            valueFrom:
+            secretKeyRef:
+                name: {{ Values.awssecretid }}
+                key: accesskey
           - name: AWS_SECRET_ACCESS_KEY
-            value: {{ .Values.minio.secretkey }}
+            valueFrom:
+            secretKeyRef:
+                 name: {{ Values.awssecretkey }}
+                 key: accesskey
           livenessProbe:
             httpGet:
               path: /
